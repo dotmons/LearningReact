@@ -1,0 +1,135 @@
+
+<script  type="module">
+// Use let for variable to be defined within block, var is accessible globally
+// const is for constant and its block scoped, can't reassign
+
+function sayHello(){
+    for(let i=0; i<5; i++){
+        console.log(i);
+    }
+    //console.log(i);
+
+}
+//sayHello();
+
+// objects
+const person = {
+    name: "Dotun",
+    walk() {
+        console.log(this);
+    }    
+};
+
+person.walk();
+
+//the bind is used to set the person object to the function permanently. So, all instance of this would always reference person Dotun
+const walk = person.walk.bind(person);
+walk();
+
+//Arrow function:
+const square = function(number){
+    return number*number;
+}
+// takes no parameter, returns 9*9
+const square_ = () => 9*9;
+
+// another way is:
+const squarearrow = number => number*number;
+console.log(square_(9));
+console.log(squarearrow(9));
+
+
+const jobs = [
+    {id: 1, isActive: true},
+    {id: 2, isActive: true},
+    {id: 3, isActive: false}
+]
+// Use of arrow function
+const activeJobs = jobs.filter(jobs => jobs.isActive);
+console.log(activeJobs);
+
+
+const human = {
+    talk(){
+        setTimeout(function() {
+            // this returns the window object cause its a standalone function
+            console.log("this", this);
+        }, 1000);
+        // This would return the human object as expected.
+        //console.log("this, ", this);
+    }
+}
+human.talk();
+// binding this object would still return the window object, instead of the human object. Solution is to use the arrow function
+// or declare var self out of setTimeout as var self = this, and console self
+//const dd = human.talk.bind(human);
+
+const humanity = {
+    talk(){
+        setTimeout(() => {
+            // this returns the humanity object cause of the arrow function
+            console.log("this", this);
+        }, 1000);
+    }
+}
+humanity.talk();
+
+
+// Use of array:
+const colors =  ['red', 'green', 'blue'];
+// Use of template literal to dynamically assign color instead of concatenation
+const items = colors.map(color =>  `<li>${color}</li>`);
+console.log(items);
+
+
+
+// Object destruction:
+const address = {
+    street: "",
+    city: "",
+    country: ""
+}
+
+const dd = address;
+dd.street = "North york";
+dd.city = "toronto";
+dd.country = "Canada";
+
+
+//const {street, city, country} = address;
+const {street: st, city, country} = dd; //can create an alias for street as st
+console.log(st);
+// the same as :
+// const street = address.street;
+// const city = address.city;
+// const country = address.country;
+
+
+
+// Using the spread array
+const first = [1,2,3];
+const second = [4,5,6];
+
+// to combine..
+
+const combined = first.concat(second);
+// best approach
+//const combined_ = [...first, ...second];
+// can be use do add item to the middle which would be complex with the concat above
+const combined_ = [...first, 'a',...second, 'b'];
+console.log(combined_);
+
+
+
+
+// use of class
+
+
+import {Teacher} from './Teacher';
+
+const ppe = new Teacher("Oludotun", "BSc");
+console.log(ppe.walk());
+console.log(ppe.teach());
+console.log(ppe.degree);
+
+</script>
